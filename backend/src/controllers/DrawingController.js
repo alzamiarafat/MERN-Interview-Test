@@ -1,58 +1,62 @@
 'use strict';
-const Drawing = require('../models/Drawing'); // Assuming the schema is in models/drawing.js
 const CommonService = require('../services/CommonService');
+const DrawingService = require('../services/DrawingService');
 
 const DrawingController = {
     getAll: async (req, res, next) => {
         try {
-            const drawings = await Drawing.find();
+            const drawings = await DrawingService.getAll();
             CommonService.successResponse(res, drawings)
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            next(error);
         }
     },
 
     getById: async (req, res, next) => {
         try {
-            const drawing = await Drawing.findById(req.params.id);
-            if (!drawing) return res.status(404).json({ message: 'Drawing not found' });
-            res.json(drawing);
+            const drawing = await DrawingService.getById(req);
+            if (!drawing) {
+                const error = { statusCode: 404, message: 'Drawing not found' };
+                CommonService.errorResponse(res, error)
+            }
+            CommonService.successResponse(res, drawing)
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            next(error)
         }
     },
 
     store: async (req, res, next) => {
         try {
-            const drawing = new Drawing(req.body);
-            await drawing.save();
-            res.status(201).json(drawing);
+            const drawing = await DrawingService.store(req);
+            CommonService.successResponse(res, drawing);
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            next(error);
         }
     },
 
     update: async (req, res, next) => {
         try {
-            const id = req.params.id
-            const updatedDrawing = await Drawing.findByIdAndUpdate(id, req.body, {
-                new: true,
-                runValidators: true,
-            });
-            if (!updatedDrawing) return res.status(404).json({ message: 'Drawing not found' });
-            res.json(updatedDrawing);
+            const updatedDrawing = await DrawingService.update(req);
+            if (!updatedDrawing) {
+                const error = { statusCode: 404, message: 'Drawing not found' };
+                CommonService.errorResponse(res, error);
+            }
+            CommonService.successResponse(res, updatedDrawing);
         } catch (error) {
-            res.status(400).json({ message: error.message });
+            next(error);
         }
     },
 
     delete: async (req, res, next) => {
         try {
-            const drawing = await Drawing.findByIdAndDelete(req.params.id);
-            if (!drawing) return res.status(404).json({ message: 'Drawing not found' });
-            res.json({ message: 'Drawing deleted successfully' });
+            const drawing = await DrawingService.delete(req);
+            if (!drawing) {
+                const error = { statusCode: 404, message: 'Drawing not found' };
+                CommonService.errorResponse(res, error);
+            }
+            CommonService.successResponse(res, drawing);
         } catch (error) {
-            res.status(500).json({ message: error.message });
+            next(error)
         }
     }
 };

@@ -8,10 +8,10 @@ const roughGenerator = rough.generator()
 
 const Whiteboard = ({ canvasRef, ctxRef, elements, setElements, tool, color, setColor }) => {
     const params = useParams();
-    const getDrawing = async () => {
-        const response = await fetchDrawingById(params.id);
-        setElements(response.data.elements)
-    }
+    // const getDrawing = async () => {
+    //     const response = await fetchDrawingById(params.id);
+    //     setElements(response.data.elements)
+    // }
     useEffect(() => {
         const canvas = canvasRef.current
         // if (canvas) {

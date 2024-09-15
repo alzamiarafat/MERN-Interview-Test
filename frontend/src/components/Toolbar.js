@@ -1,13 +1,13 @@
 // src/components/Toolbar.js
 import React from 'react';
 import { AiOutlineLine } from "react-icons/ai";
-import { BiColor, BiPencil, BiRectangle, BiCircle, BiText } from "react-icons/bi";
+import { BiPencil, BiRectangle, BiCircle, BiText } from "react-icons/bi";
 import { BsEgg } from "react-icons/bs";
 import './style.css';
 
 const Toolbar = ({ handleToolData, handleColorData }) => {
     let tool = "pencil"
-    let color = "color";
+    let color = "black";
 
     function handleTool(value) {
         tool = value;

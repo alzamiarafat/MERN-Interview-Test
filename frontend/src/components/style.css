@@ -106,12 +106,12 @@
 /* Horizontal menu container */
 .horizontal-menu {
   list-style-type: none;
-  padding: 0;
+  padding: 10px;
   margin: 0;
   display: flex;
   justify-content: space-around;
   background-color: white;
-  border-bottom: 2px solid #ccc;
+  /* border-bottom: 2px solid #ccc; */
   position: fixed;
   margin-left: 10%;
   margin-top: 3%;
