@@ -10,17 +10,19 @@ const RoomPage = () => {
     const params = useParams();
     const toast = useRef(null);
 
-    const [tool, setTool] = useState("pencil")
-    const [color, setColor] = useState("black")
-    const [elements, setElements] = useState([])
-    const [history, setHistory] = useState([])
+    const [tool, setTool] = useState("pencil");
+    const [color, setColor] = useState("black");
+    const [elements, setElements] = useState([]);
+    const [history, setHistory] = useState([]);
+    const [drawing, setDrawing] = useState({});
 
     const canvasRef = useRef(null)
     const ctxRef = useRef(null)
     const getDrawing = async () => {
         try {
             const response = await fetchDrawingById(params.id);
-            setElements(response.data.data.elements)
+            setElements(response.data.data.elements);
+            setDrawing(response.data.data);
         } catch (error) {
             toast.current.show({ severity: 'error', summary: 'Error', detail: error.response.data.error, life: 3000 });
             // const navigate = useNavigate();
@@ -78,7 +80,7 @@ const RoomPage = () => {
     return (
         <div>
             <Toast ref={toast} />
-            <Navbar elements={elements} history={history} handleUndoData={handleUndo} handleRedoData={handleRedo} handleClearData={handleClear} />
+            <Navbar elements={elements} history={history} drawing={drawing} handleUndoData={handleUndo} handleRedoData={handleRedo} handleClearData={handleClear} />
             <Toolbar handleToolData={handleTool} handleColorData={handleColor} />
             <Whiteboard
                 canvasRef={canvasRef}

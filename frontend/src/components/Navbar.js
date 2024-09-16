@@ -8,7 +8,7 @@ import { Toast } from 'primereact/toast';
 import { InputText } from 'primereact/inputtext';
 import { FloatLabel } from 'primereact/floatlabel';
 
-const Navbar = ({ elements, history, handleUndoData, handleRedoData, handleClearData }) => {
+const Navbar = ({ elements, history, drawing, handleUndoData, handleRedoData, handleClearData }) => {
     const params = useParams();
     const toast = useRef(null);
     const [boardName, setBoardName] = useState("White Board");
