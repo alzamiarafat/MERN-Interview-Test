@@ -13,7 +13,8 @@ app.use(cors());
 require('./config/database');
 
 //routes
-require('./routes')(app);
+// require('./routes')(app);
+app.use('/', (req, res) => res.send("hello"))
 
 // Start the server
 app.listen(PORT, () => {
