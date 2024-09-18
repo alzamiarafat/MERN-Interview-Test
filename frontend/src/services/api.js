@@ -1,7 +1,7 @@
 // src/services/api.js
 import axios from 'axios';
 
-const API_BASE_URL = 'https://mern-interview-test-server.vercel.app';  // Your backend URL
+const API_BASE_URL = 'https://mern-interview-test-server.vercel.app/api';  // Your backend URL
 
 export const fetchDrawings = async () => {
     return await axios.get(`${API_BASE_URL}/drawings`);
